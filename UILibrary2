@@ -137,7 +137,7 @@ Library.__index = Library
 function Library.new()
 	local self = setmetatable({}, Library)
 
-	self.Version = "v1"
+	self.Version = "v2"
 	self.Windows = {}
 
 	self.ScreenGui = Create("ScreenGui", {
@@ -331,10 +331,22 @@ function Library:CreateWindow(Config)
 		})
 	end)
 
-	local Sidebar = Create("Frame", {
+	local Body = Create("Frame", {
+		Name = "Body",
 		Parent = Root,
 		Position = UDim2.fromOffset(0, 50),
-		Size = UDim2.new(0, 188, 1, -50),
+		Size = UDim2.new(1, 0, 1, -50),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ClipsDescendants = true
+	})
+
+	AddCorner(Body, 14)
+
+	local Sidebar = Create("Frame", {
+		Parent = Body,
+		Position = UDim2.fromOffset(0, 0),
+		Size = UDim2.new(0, 188, 1, 0),
 		BackgroundColor3 = Theme.Surface,
 		BorderSizePixel = 0
 	})
@@ -343,7 +355,7 @@ function Library:CreateWindow(Config)
 		Parent = Sidebar,
 		AnchorPoint = Vector2.new(1, 0),
 		Position = UDim2.fromScale(1, 0),
-		Size = UDim2.new(0, 1, 1, 0),
+		Size = UDim2.new(0, 1, 1, -14),
 		BackgroundColor3 = Theme.BorderSoft,
 		BorderSizePixel = 0
 	})
@@ -381,10 +393,11 @@ function Library:CreateWindow(Config)
 	})
 
 	local ContentHolder = Create("Frame", {
-		Parent = Root,
-		Position = UDim2.fromOffset(188, 50),
-		Size = UDim2.new(1, -188, 1, -50),
-		BackgroundTransparency = 1
+		Parent = Body,
+		Position = UDim2.fromOffset(188, 0),
+		Size = UDim2.new(1, -188, 1, 0),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0
 	})
 
 	local ResizeHandle = Create("Frame", {
@@ -1429,6 +1442,7 @@ function Library:CreateWindow(Config)
 	end
 
 	Window.Root = Root
+	Window.Body = Body
 	Window.Reopen = Reopen
 	Window.ResizeHandle = ResizeHandle
 	Window.NotificationHolder = NotificationHolder
