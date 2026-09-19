@@ -6,17 +6,17 @@ local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 
 local Theme = {
-	Background = Color3.fromRGB(7, 7, 8),
-	Surface = Color3.fromRGB(12, 12, 14),
-	Surface2 = Color3.fromRGB(17, 17, 20),
-	Surface3 = Color3.fromRGB(23, 23, 27),
-	Border = Color3.fromRGB(42, 42, 48),
-	BorderSoft = Color3.fromRGB(31, 31, 36),
-	Text = Color3.fromRGB(238, 238, 242),
-	SubText = Color3.fromRGB(154, 154, 164),
-	Muted = Color3.fromRGB(91, 91, 101),
-	Accent = Color3.fromRGB(128, 128, 140),
-	AccentBright = Color3.fromRGB(188, 188, 200),
+	Background = Color3.fromRGB(22, 22, 24),
+	Surface = Color3.fromRGB(29, 29, 32),
+	Surface2 = Color3.fromRGB(36, 36, 40),
+	Surface3 = Color3.fromRGB(44, 44, 49),
+	Border = Color3.fromRGB(58, 58, 64),
+	BorderSoft = Color3.fromRGB(49, 49, 54),
+	Text = Color3.fromRGB(235, 235, 238),
+	SubText = Color3.fromRGB(170, 170, 177),
+	Muted = Color3.fromRGB(116, 116, 124),
+	Accent = Color3.fromRGB(145, 145, 152),
+	AccentBright = Color3.fromRGB(196, 196, 202),
 	Success = Color3.fromRGB(106, 188, 137),
 	Warning = Color3.fromRGB(205, 163, 89),
 	Error = Color3.fromRGB(205, 91, 102)
@@ -137,7 +137,7 @@ Library.__index = Library
 function Library.new()
 	local self = setmetatable({}, Library)
 
-	self.Version = "v2"
+	self.Version = "v3"
 	self.Windows = {}
 
 	self.ScreenGui = Create("ScreenGui", {
@@ -159,10 +159,10 @@ function Library:CreateWindow(Config)
 	Window.Library = self
 	Window.Tabs = {}
 	Window.SelectedTab = nil
-	Window.MinSize = Config.MinSize or Vector2.new(620, 420)
-	Window.MaxSize = Config.MaxSize or Vector2.new(1500, 950)
+	Window.MinSize = Config.MinSize or Vector2.new(460, 320)
+	Window.MaxSize = Config.MaxSize or Vector2.new(1100, 760)
 
-	local DefaultSize = Config.Size or Vector2.new(920, 610)
+	local DefaultSize = Config.Size or Vector2.new(660, 440)
 
 	local Root = Create("Frame", {
 		Name = "Window",
@@ -175,7 +175,7 @@ function Library:CreateWindow(Config)
 		ClipsDescendants = true
 	})
 
-	AddCorner(Root, 14)
+	AddCorner(Root, 10)
 	AddStroke(Root, Theme.Border, 1, 0)
 
 	Create("UIGradient", {
@@ -190,7 +190,7 @@ function Library:CreateWindow(Config)
 	local Topbar = Create("Frame", {
 		Name = "Topbar",
 		Parent = Root,
-		Size = UDim2.new(1, 0, 0, 50),
+		Size = UDim2.new(1, 0, 0, 40),
 		BackgroundColor3 = Theme.Surface,
 		BorderSizePixel = 0
 	})
@@ -216,20 +216,20 @@ function Library:CreateWindow(Config)
 
 	local LogoHolder = Create("Frame", {
 		Parent = Topbar,
-		Position = UDim2.fromOffset(13, 9),
-		Size = UDim2.fromOffset(32, 32),
+		Position = UDim2.fromOffset(10, 7),
+		Size = UDim2.fromOffset(26, 26),
 		BackgroundColor3 = Theme.Surface3,
 		BorderSizePixel = 0
 	})
 
-	AddCorner(LogoHolder, 10)
+	AddCorner(LogoHolder, 8)
 	AddStroke(LogoHolder, Theme.Border, 1, 0)
 
 	local LogoOuter = Create("Frame", {
 		Parent = LogoHolder,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromOffset(18, 18),
+		Size = UDim2.fromOffset(14, 14),
 		BackgroundTransparency = 1
 	})
 
@@ -240,7 +240,7 @@ function Library:CreateWindow(Config)
 		Parent = LogoHolder,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromOffset(7, 7),
+		Size = UDim2.fromOffset(5, 5),
 		BackgroundColor3 = Theme.Text,
 		BorderSizePixel = 0
 	})
@@ -249,24 +249,24 @@ function Library:CreateWindow(Config)
 
 	local Title = Create("TextLabel", {
 		Parent = Topbar,
-		Position = UDim2.fromOffset(55, 6),
-		Size = UDim2.new(1, -170, 0, 22),
+		Position = UDim2.fromOffset(45, 4),
+		Size = UDim2.new(1, -145, 0, 18),
 		BackgroundTransparency = 1,
 		Text = Config.Title or "UI Library",
 		TextColor3 = Theme.Text,
-		TextSize = 16,
+		TextSize = 13,
 		Font = Enum.Font.GothamBold,
 		TextXAlignment = Enum.TextXAlignment.Left
 	})
 
 	local Subtitle = Create("TextLabel", {
 		Parent = Topbar,
-		Position = UDim2.fromOffset(55, 26),
-		Size = UDim2.new(1, -170, 0, 16),
+		Position = UDim2.fromOffset(45, 21),
+		Size = UDim2.new(1, -145, 0, 13),
 		BackgroundTransparency = 1,
 		Text = Config.Subtitle or "Moveable • Resizeable • Reopenable",
 		TextColor3 = Theme.SubText,
-		TextSize = 10,
+		TextSize = 9,
 		Font = Enum.Font.Gotham,
 		TextXAlignment = Enum.TextXAlignment.Left
 	})
@@ -274,8 +274,8 @@ function Library:CreateWindow(Config)
 	local Minimize = Create("TextButton", {
 		Parent = Topbar,
 		AnchorPoint = Vector2.new(1, 0.5),
-		Position = UDim2.new(1, -47, 0.5, 0),
-		Size = UDim2.fromOffset(28, 28),
+		Position = UDim2.new(1, -38, 0.5, 0),
+		Size = UDim2.fromOffset(23, 23),
 		BackgroundColor3 = Theme.Surface2,
 		BorderSizePixel = 0,
 		Text = "—",
@@ -285,13 +285,13 @@ function Library:CreateWindow(Config)
 		AutoButtonColor = false
 	})
 
-	AddCorner(Minimize, 7)
+	AddCorner(Minimize, 6)
 
 	local Close = Create("TextButton", {
 		Parent = Topbar,
 		AnchorPoint = Vector2.new(1, 0.5),
-		Position = UDim2.new(1, -13, 0.5, 0),
-		Size = UDim2.fromOffset(28, 28),
+		Position = UDim2.new(1, -10, 0.5, 0),
+		Size = UDim2.fromOffset(23, 23),
 		BackgroundColor3 = Theme.Surface2,
 		BorderSizePixel = 0,
 		Text = "×",
@@ -301,7 +301,7 @@ function Library:CreateWindow(Config)
 		AutoButtonColor = false
 	})
 
-	AddCorner(Close, 7)
+	AddCorner(Close, 6)
 
 	Minimize.MouseEnter:Connect(function()
 		Tween(Minimize, 0.12, {
@@ -334,19 +334,19 @@ function Library:CreateWindow(Config)
 	local Body = Create("Frame", {
 		Name = "Body",
 		Parent = Root,
-		Position = UDim2.fromOffset(0, 50),
-		Size = UDim2.new(1, 0, 1, -50),
+		Position = UDim2.fromOffset(0, 40),
+		Size = UDim2.new(1, 0, 1, -40),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		ClipsDescendants = true
 	})
 
-	AddCorner(Body, 14)
+	AddCorner(Body, 10)
 
 	local Sidebar = Create("Frame", {
 		Parent = Body,
 		Position = UDim2.fromOffset(0, 0),
-		Size = UDim2.new(0, 188, 1, 0),
+		Size = UDim2.new(0, 142, 1, 0),
 		BackgroundColor3 = Theme.Surface,
 		BorderSizePixel = 0
 	})
@@ -362,8 +362,8 @@ function Library:CreateWindow(Config)
 
 	local SidebarHeader = Create("TextLabel", {
 		Parent = Sidebar,
-		Position = UDim2.fromOffset(13, 12),
-		Size = UDim2.new(1, -26, 0, 18),
+		Position = UDim2.fromOffset(10, 9),
+		Size = UDim2.new(1, -20, 0, 15),
 		BackgroundTransparency = 1,
 		Text = Config.MenuTitle or "MENU",
 		TextColor3 = Theme.Muted,
@@ -374,8 +374,8 @@ function Library:CreateWindow(Config)
 
 	local TabHolder = Create("ScrollingFrame", {
 		Parent = Sidebar,
-		Position = UDim2.fromOffset(8, 38),
-		Size = UDim2.new(1, -16, 1, -48),
+		Position = UDim2.fromOffset(6, 29),
+		Size = UDim2.new(1, -12, 1, -36),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		ScrollBarThickness = 2,
@@ -394,8 +394,8 @@ function Library:CreateWindow(Config)
 
 	local ContentHolder = Create("Frame", {
 		Parent = Body,
-		Position = UDim2.fromOffset(188, 0),
-		Size = UDim2.new(1, -188, 1, 0),
+		Position = UDim2.fromOffset(142, 0),
+		Size = UDim2.new(1, -142, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0
 	})
@@ -405,7 +405,7 @@ function Library:CreateWindow(Config)
 		Parent = Root,
 		AnchorPoint = Vector2.new(1, 1),
 		Position = UDim2.fromScale(1, 1),
-		Size = UDim2.fromOffset(30, 30),
+		Size = UDim2.fromOffset(24, 24),
 		BackgroundTransparency = 1,
 		Active = true,
 		ZIndex = 20
@@ -441,8 +441,8 @@ function Library:CreateWindow(Config)
 		Name = "Reopen",
 		Parent = self.ScreenGui,
 		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 12),
-		Size = UDim2.fromOffset(156, 44),
+		Position = UDim2.new(0.5, 0, 0, 9),
+		Size = UDim2.fromOffset(118, 34),
 		BackgroundColor3 = Theme.Background,
 		BorderSizePixel = 0,
 		Text = "",
@@ -450,7 +450,7 @@ function Library:CreateWindow(Config)
 		Visible = false
 	})
 
-	AddCorner(Reopen, 14)
+	AddCorner(Reopen, 10)
 	AddStroke(Reopen, Theme.Border, 1, 0)
 
 	Create("UIGradient", {
@@ -466,19 +466,19 @@ function Library:CreateWindow(Config)
 		Parent = Reopen,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.17, 0.5),
-		Size = UDim2.fromOffset(28, 28),
+		Size = UDim2.fromOffset(22, 22),
 		BackgroundColor3 = Theme.Surface3,
 		BorderSizePixel = 0
 	})
 
-	AddCorner(ReopenGlow, 10)
+	AddCorner(ReopenGlow, 7)
 	AddStroke(ReopenGlow, Theme.AccentBright, 1, 0.2)
 
 	local ReopenOuter = Create("Frame", {
 		Parent = ReopenGlow,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromOffset(17, 17),
+		Size = UDim2.fromOffset(13, 13),
 		BackgroundTransparency = 1
 	})
 
@@ -498,8 +498,8 @@ function Library:CreateWindow(Config)
 
 	local ReopenTitle = Create("TextLabel", {
 		Parent = Reopen,
-		Position = UDim2.fromOffset(50, 7),
-		Size = UDim2.new(1, -60, 0, 16),
+		Position = UDim2.fromOffset(38, 5),
+		Size = UDim2.new(1, -44, 0, 13),
 		BackgroundTransparency = 1,
 		Text = Config.ReopenText or "OPEN PANEL",
 		TextColor3 = Theme.Text,
@@ -510,8 +510,8 @@ function Library:CreateWindow(Config)
 
 	local ReopenSub = Create("TextLabel", {
 		Parent = Reopen,
-		Position = UDim2.fromOffset(50, 22),
-		Size = UDim2.new(1, -60, 0, 13),
+		Position = UDim2.fromOffset(38, 17),
+		Size = UDim2.new(1, -44, 0, 11),
 		BackgroundTransparency = 1,
 		Text = "click to restore",
 		TextColor3 = Theme.Muted,
@@ -532,7 +532,7 @@ function Library:CreateWindow(Config)
 		Parent = NotificationHolder,
 		VerticalAlignment = Enum.VerticalAlignment.Bottom,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
-		Padding = UDim.new(0, 7),
+		Padding = UDim.new(0, 5),
 		SortOrder = Enum.SortOrder.LayoutOrder
 	})
 
@@ -600,7 +600,7 @@ function Library:CreateWindow(Config)
 
 	Reopen.MouseEnter:Connect(function()
 		Tween(Reopen, 0.14, {
-			Size = UDim2.fromOffset(164, 48)
+			Size = UDim2.fromOffset(124, 36)
 		})
 
 		Tween(ReopenGlow, 0.14, {
@@ -608,13 +608,13 @@ function Library:CreateWindow(Config)
 		})
 
 		Tween(ReopenOuter, 0.14, {
-			Size = UDim2.fromOffset(20, 20)
+			Size = UDim2.fromOffset(15, 15)
 		})
 	end)
 
 	Reopen.MouseLeave:Connect(function()
 		Tween(Reopen, 0.14, {
-			Size = UDim2.fromOffset(156, 44)
+			Size = UDim2.fromOffset(118, 34)
 		})
 
 		Tween(ReopenGlow, 0.14, {
@@ -622,7 +622,7 @@ function Library:CreateWindow(Config)
 		})
 
 		Tween(ReopenOuter, 0.14, {
-			Size = UDim2.fromOffset(17, 17)
+			Size = UDim2.fromOffset(13, 13)
 		})
 	end)
 
@@ -664,7 +664,7 @@ function Library:CreateWindow(Config)
 			Text = tostring(Text),
 			TextWrapped = true,
 			TextColor3 = Theme.Text,
-			TextSize = 11,
+			TextSize = 10,
 			Font = Enum.Font.Gotham,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center
@@ -719,7 +719,7 @@ function Library:CreateWindow(Config)
 
 		local Button = Create("TextButton", {
 			Parent = TabHolder,
-			Size = UDim2.new(1, 0, 0, 38),
+			Size = UDim2.new(1, 0, 0, 31),
 			BackgroundColor3 = Theme.Surface,
 			BorderSizePixel = 0,
 			Text = "   " .. Name,
@@ -730,7 +730,7 @@ function Library:CreateWindow(Config)
 			AutoButtonColor = false
 		})
 
-		AddCorner(Button, 8)
+		AddCorner(Button, 6)
 
 		local Indicator = Create("Frame", {
 			Parent = Button,
@@ -745,8 +745,8 @@ function Library:CreateWindow(Config)
 
 		local Content = Create("ScrollingFrame", {
 			Parent = ContentHolder,
-			Position = UDim2.fromOffset(12, 12),
-			Size = UDim2.new(1, -24, 1, -24),
+			Position = UDim2.fromOffset(8, 8),
+			Size = UDim2.new(1, -16, 1, -16),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			ScrollBarThickness = 3,
@@ -780,9 +780,9 @@ function Library:CreateWindow(Config)
 				BorderSizePixel = 0
 			})
 
-			AddCorner(Frame, 10)
+			AddCorner(Frame, 8)
 			AddStroke(Frame, Theme.Border, 1, 0.3)
-			AddPadding(Frame, 10, 10, 10, 10)
+			AddPadding(Frame, 8, 8, 8, 8)
 
 			Create("UIListLayout", {
 				Parent = Frame,
@@ -792,7 +792,7 @@ function Library:CreateWindow(Config)
 
 			local Heading = Create("TextLabel", {
 				Parent = Frame,
-				Size = UDim2.new(1, 0, 0, 21),
+				Size = UDim2.new(1, 0, 0, 18),
 				BackgroundTransparency = 1,
 				Text = tostring(TitleText or "Section"),
 				TextColor3 = Theme.Text,
@@ -811,7 +811,7 @@ function Library:CreateWindow(Config)
 			end
 
 			function Section:AddLabel(Text)
-				local Row = NewRow(34)
+				local Row = NewRow(29)
 				AddCorner(Row, 7)
 
 				local Label = Create("TextLabel", {
@@ -843,7 +843,7 @@ function Library:CreateWindow(Config)
 
 				local Button = Create("TextButton", {
 					Parent = Frame,
-					Size = UDim2.new(1, 0, 0, 38),
+					Size = UDim2.new(1, 0, 0, 32),
 					BackgroundColor3 = Theme.Surface2,
 					BorderSizePixel = 0,
 					Text = "  " .. tostring(Config.Text or "Button"),
@@ -897,7 +897,7 @@ function Library:CreateWindow(Config)
 				Config = Config or {}
 
 				local State = Config.Default == true
-				local Row = NewRow(38)
+				local Row = NewRow(32)
 
 				AddCorner(Row, 7)
 
@@ -977,7 +977,7 @@ function Library:CreateWindow(Config)
 				local Minimum = Config.Min or 0
 				local Maximum = Config.Max or 100
 				local Value = math.clamp(Config.Default or Minimum, Minimum, Maximum)
-				local Row = NewRow(50)
+				local Row = NewRow(43)
 
 				AddCorner(Row, 7)
 
@@ -1101,7 +1101,7 @@ function Library:CreateWindow(Config)
 			function Section:AddTextbox(Config)
 				Config = Config or {}
 
-				local Row = NewRow(58)
+				local Row = NewRow(50)
 				AddCorner(Row, 7)
 
 				Create("TextLabel", {
@@ -1173,7 +1173,7 @@ function Library:CreateWindow(Config)
 
 				local Holder = Create("Frame", {
 					Parent = Frame,
-					Size = UDim2.new(1, 0, 0, 38),
+					Size = UDim2.new(1, 0, 0, 32),
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundColor3 = Theme.Surface2,
 					BorderSizePixel = 0
@@ -1189,7 +1189,7 @@ function Library:CreateWindow(Config)
 
 				local Main = Create("TextButton", {
 					Parent = Holder,
-					Size = UDim2.new(1, 0, 0, 38),
+					Size = UDim2.new(1, 0, 0, 32),
 					BackgroundTransparency = 1,
 					Text = tostring(Config.Text or "Dropdown") .. ": " .. tostring(Current or "None"),
 					TextColor3 = Theme.Text,
@@ -1284,7 +1284,7 @@ function Library:CreateWindow(Config)
 			function Section:AddScrollFrame(Config)
 				Config = Config or {}
 
-				local Height = Config.Height or 240
+				local Height = Config.Height or 145
 				local Holder = NewRow(Height)
 
 				AddCorner(Holder, 7)
